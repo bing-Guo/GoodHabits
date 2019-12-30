@@ -12,9 +12,22 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        self.view.backgroundColor = .white
+        self.title = "習慣"
+        
+        let rightButton = UIBarButtonItem(
+            image: UIImage(systemName: "plus"),
+            style: .plain,
+            target: self,
+            action: #selector(setting)
+        )
+        
+        self.navigationItem.rightBarButtonItem = rightButton
     }
-
-
+    
+    @objc func setting() {
+        print("event")
+    }
 }
 
