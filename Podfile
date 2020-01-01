@@ -8,6 +8,7 @@ target 'GoodHabits' do
   # Pods for GoodHabits
   pod 'FlexLayout'
   pod 'RealmSwift', '~> 3.20.0'
+  pod 'PinLayout'
 
   target 'GoodHabitsTests' do
     inherit! :search_paths
