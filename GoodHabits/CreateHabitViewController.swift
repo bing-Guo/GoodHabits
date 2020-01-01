@@ -12,8 +12,12 @@ import PinLayout
 
 class CreateHabitViewController: UIViewController {
     
+    var mainView: CreateHabitView { return self.view as! CreateHabitView }
+    override func loadView() { self.view = CreateHabitView() }
+
     override func viewDidLoad() {
-        view = CreateHabitView()
+        super.viewDidLoad()
+
     }
 
 }
