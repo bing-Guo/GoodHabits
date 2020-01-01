@@ -27,8 +27,8 @@ class ViewController: UIViewController {
         view.addSubview(habitsTableView)
     }
     
-    @objc func setting() {
-        print("event")
+    @objc func passToCreateHabitView() {
+        self.navigationController?.pushViewController(CreateHabitViewController(), animated: true)
     }
     
     func settingNavigationBar() {
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
             image: UIImage(systemName: "plus"),
             style: .plain,
             target: self,
-            action: #selector(setting)
+            action: #selector(passToCreateHabitView)
         )
         
         self.navigationItem.rightBarButtonItem = rightButton

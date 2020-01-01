@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FCC120B823BC51530097ED27 /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */; };
 		FCDC8A1623BA538D0069BEC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDC8A1523BA538D0069BEC6 /* AppDelegate.swift */; };
 		FCDC8A1823BA538D0069BEC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDC8A1723BA538D0069BEC6 /* SceneDelegate.swift */; };
 		FCDC8A1A23BA538D0069BEC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDC8A1923BA538D0069BEC6 /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
 		FCDC8A1223BA538D0069BEC6 /* GoodHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCDC8A1523BA538D0069BEC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCDC8A1723BA538D0069BEC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				FCDC8A1E23BA538E0069BEC6 /* Assets.xcassets */,
 				FCDC8A2023BA538E0069BEC6 /* LaunchScreen.storyboard */,
 				FCDC8A2323BA538E0069BEC6 /* Info.plist */,
+				FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */,
 			);
 			path = GoodHabits;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCDC8A1A23BA538D0069BEC6 /* ViewController.swift in Sources */,
+				FCC120B823BC51530097ED27 /* CreateHabitViewController.swift in Sources */,
 				FCDC8A1623BA538D0069BEC6 /* AppDelegate.swift in Sources */,
 				FCDC8A1823BA538D0069BEC6 /* SceneDelegate.swift in Sources */,
 			);
