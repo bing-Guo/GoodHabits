@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import FlexLayout
+import PinLayout
 
 class CreateHabitViewController: UIViewController {
-
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.view.backgroundColor = .red
+        view = CreateHabitView()
     }
 
 }
