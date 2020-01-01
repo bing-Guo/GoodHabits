@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06EDCF1B6BD461385E9ED703 /* Pods_GoodHabits.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C466D54702E3C527C45BB8 /* Pods_GoodHabits.framework */; };
+		CF1B87E80869BB939442867B /* Pods_GoodHabitsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4293456D5C646661E7162746 /* Pods_GoodHabitsTests.framework */; };
 		FCC120B823BC51530097ED27 /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */; };
 		FCDC8A1623BA538D0069BEC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDC8A1523BA538D0069BEC6 /* AppDelegate.swift */; };
 		FCDC8A1823BA538D0069BEC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDC8A1723BA538D0069BEC6 /* SceneDelegate.swift */; };
@@ -28,6 +30,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01BC28E4CEE47F9C31238EFD /* Pods-GoodHabits.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodHabits.release.xcconfig"; path = "Target Support Files/Pods-GoodHabits/Pods-GoodHabits.release.xcconfig"; sourceTree = "<group>"; };
+		3F519D6DF41AEA3CF6D2F048 /* Pods-GoodHabitsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodHabitsTests.release.xcconfig"; path = "Target Support Files/Pods-GoodHabitsTests/Pods-GoodHabitsTests.release.xcconfig"; sourceTree = "<group>"; };
+		4293456D5C646661E7162746 /* Pods_GoodHabitsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodHabitsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8914170E5C54F90DCA796EF7 /* Pods-GoodHabitsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodHabitsTests.debug.xcconfig"; path = "Target Support Files/Pods-GoodHabitsTests/Pods-GoodHabitsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D1F59FB60FD36D146A179658 /* Pods-GoodHabits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodHabits.debug.xcconfig"; path = "Target Support Files/Pods-GoodHabits/Pods-GoodHabits.debug.xcconfig"; sourceTree = "<group>"; };
+		F3C466D54702E3C527C45BB8 /* Pods_GoodHabits.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodHabits.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
 		FCDC8A1223BA538D0069BEC6 /* GoodHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCDC8A1523BA538D0069BEC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06EDCF1B6BD461385E9ED703 /* Pods_GoodHabits.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,18 +63,42 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF1B87E80869BB939442867B /* Pods_GoodHabitsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		31FDE8B6A99588F3671890D6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D1F59FB60FD36D146A179658 /* Pods-GoodHabits.debug.xcconfig */,
+				01BC28E4CEE47F9C31238EFD /* Pods-GoodHabits.release.xcconfig */,
+				8914170E5C54F90DCA796EF7 /* Pods-GoodHabitsTests.debug.xcconfig */,
+				3F519D6DF41AEA3CF6D2F048 /* Pods-GoodHabitsTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		3C11EEFE28824B8224598E73 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3C466D54702E3C527C45BB8 /* Pods_GoodHabits.framework */,
+				4293456D5C646661E7162746 /* Pods_GoodHabitsTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FCDC8A0923BA538D0069BEC6 = {
 			isa = PBXGroup;
 			children = (
 				FCDC8A1423BA538D0069BEC6 /* GoodHabits */,
 				FCDC8A2B23BA538E0069BEC6 /* GoodHabitsTests */,
 				FCDC8A1323BA538D0069BEC6 /* Products */,
+				31FDE8B6A99588F3671890D6 /* Pods */,
+				3C11EEFE28824B8224598E73 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,9 +142,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCDC8A3123BA538E0069BEC6 /* Build configuration list for PBXNativeTarget "GoodHabits" */;
 			buildPhases = (
+				C57A6EBF60597DFEE640CBE7 /* [CP] Check Pods Manifest.lock */,
 				FCDC8A0E23BA538D0069BEC6 /* Sources */,
 				FCDC8A0F23BA538D0069BEC6 /* Frameworks */,
 				FCDC8A1023BA538D0069BEC6 /* Resources */,
+				2522B327D7EE122079F05A34 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,6 +161,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCDC8A3423BA538E0069BEC6 /* Build configuration list for PBXNativeTarget "GoodHabitsTests" */;
 			buildPhases = (
+				644FB8EA81C500418760EAAB /* [CP] Check Pods Manifest.lock */,
 				FCDC8A2423BA538E0069BEC6 /* Sources */,
 				FCDC8A2523BA538E0069BEC6 /* Frameworks */,
 				FCDC8A2623BA538E0069BEC6 /* Resources */,
@@ -197,6 +233,70 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2522B327D7EE122079F05A34 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodHabits/Pods-GoodHabits-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodHabits/Pods-GoodHabits-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodHabits/Pods-GoodHabits-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		644FB8EA81C500418760EAAB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoodHabitsTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C57A6EBF60597DFEE640CBE7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoodHabits-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FCDC8A0E23BA538D0069BEC6 /* Sources */ = {
@@ -364,6 +464,7 @@
 		};
 		FCDC8A3223BA538E0069BEC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1F59FB60FD36D146A179658 /* Pods-GoodHabits.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -381,6 +482,7 @@
 		};
 		FCDC8A3323BA538E0069BEC6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01BC28E4CEE47F9C31238EFD /* Pods-GoodHabits.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -398,6 +500,7 @@
 		};
 		FCDC8A3523BA538E0069BEC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8914170E5C54F90DCA796EF7 /* Pods-GoodHabitsTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -419,6 +522,7 @@
 		};
 		FCDC8A3623BA538E0069BEC6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F519D6DF41AEA3CF6D2F048 /* Pods-GoodHabitsTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

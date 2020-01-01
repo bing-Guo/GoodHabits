@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-GoodHabits/Pods-GoodHabits-frameworks.sh
+${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework
+${BUILT_PRODUCTS_DIR}/Realm/Realm.framework
+${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework

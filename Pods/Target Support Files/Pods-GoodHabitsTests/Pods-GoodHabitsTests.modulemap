@@ -1,0 +1,6 @@
+framework module Pods_GoodHabitsTests {
+  umbrella header "Pods-GoodHabitsTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

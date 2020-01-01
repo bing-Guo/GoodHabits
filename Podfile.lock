@@ -1,0 +1,26 @@
+PODS:
+  - FlexLayout (1.3.17)
+  - Realm (3.20.0):
+    - Realm/Headers (= 3.20.0)
+  - Realm/Headers (3.20.0)
+  - RealmSwift (3.20.0):
+    - Realm (= 3.20.0)
+
+DEPENDENCIES:
+  - FlexLayout
+  - RealmSwift (~> 3.20.0)
+
+SPEC REPOS:
+  trunk:
+    - FlexLayout
+    - Realm
+    - RealmSwift
+
+SPEC CHECKSUMS:
+  FlexLayout: 257b6763526bc957d2abc2b77a05760b86ca0e21
+  Realm: 8b2ca5bc6479a91f379b6b42b5922e396cd5ba5a
+  RealmSwift: 1949ef26a279e1845bd51d591b9103adfcd121df
+
+PODFILE CHECKSUM: 7b113d897cff6082a793f0fa0d86dcf245c0c435
+
+COCOAPODS: 1.8.4
