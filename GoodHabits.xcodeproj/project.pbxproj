@@ -12,6 +12,7 @@
 		FCC120B823BC51530097ED27 /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */; };
 		FCC120BA23BC5A130097ED27 /* CreateHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120B923BC5A130097ED27 /* CreateHabitView.swift */; };
 		FCC120BE23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120BD23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift */; };
+		FCC120C323BCE9DB0097ED27 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120C223BCE9DB0097ED27 /* Habit.swift */; };
 		FCDC8A1623BA538D0069BEC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDC8A1523BA538D0069BEC6 /* AppDelegate.swift */; };
 		FCDC8A1823BA538D0069BEC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDC8A1723BA538D0069BEC6 /* SceneDelegate.swift */; };
 		FCDC8A1A23BA538D0069BEC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDC8A1923BA538D0069BEC6 /* ViewController.swift */; };
@@ -41,6 +42,7 @@
 		FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
 		FCC120B923BC5A130097ED27 /* CreateHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitView.swift; sourceTree = "<group>"; };
 		FCC120BD23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
+		FCC120C223BCE9DB0097ED27 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		FCDC8A1223BA538D0069BEC6 /* GoodHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCDC8A1523BA538D0069BEC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCDC8A1723BA538D0069BEC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +96,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FCC120BF23BCE9980097ED27 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FCC120BD23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift */,
+				FCC120B923BC5A130097ED27 /* CreateHabitView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FCC120C023BCE9AD0097ED27 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FCDC8A1923BA538D0069BEC6 /* ViewController.swift */,
+				FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		FCC120C123BCE9C10097ED27 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				FCC120C223BCE9DB0097ED27 /* Habit.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		FCDC8A0923BA538D0069BEC6 = {
 			isa = PBXGroup;
 			children = (
@@ -117,16 +145,15 @@
 		FCDC8A1423BA538D0069BEC6 /* GoodHabits */ = {
 			isa = PBXGroup;
 			children = (
+				FCC120C123BCE9C10097ED27 /* Entity */,
+				FCC120C023BCE9AD0097ED27 /* Controller */,
+				FCC120BF23BCE9980097ED27 /* View */,
 				FCDC8A1523BA538D0069BEC6 /* AppDelegate.swift */,
 				FCDC8A1723BA538D0069BEC6 /* SceneDelegate.swift */,
-				FCDC8A1923BA538D0069BEC6 /* ViewController.swift */,
 				FCDC8A1B23BA538D0069BEC6 /* Main.storyboard */,
 				FCDC8A1E23BA538E0069BEC6 /* Assets.xcassets */,
 				FCDC8A2023BA538E0069BEC6 /* LaunchScreen.storyboard */,
 				FCDC8A2323BA538E0069BEC6 /* Info.plist */,
-				FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */,
-				FCC120B923BC5A130097ED27 /* CreateHabitView.swift */,
-				FCC120BD23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift */,
 			);
 			path = GoodHabits;
 			sourceTree = "<group>";
@@ -311,6 +338,7 @@
 				FCDC8A1A23BA538D0069BEC6 /* ViewController.swift in Sources */,
 				FCC120B823BC51530097ED27 /* CreateHabitViewController.swift in Sources */,
 				FCC120BA23BC5A130097ED27 /* CreateHabitView.swift in Sources */,
+				FCC120C323BCE9DB0097ED27 /* Habit.swift in Sources */,
 				FCC120BE23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift in Sources */,
 				FCDC8A1623BA538D0069BEC6 /* AppDelegate.swift in Sources */,
 				FCDC8A1823BA538D0069BEC6 /* SceneDelegate.swift in Sources */,

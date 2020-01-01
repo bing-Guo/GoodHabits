@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController {
     
     var habitsTableView = UITableView()
-    var testTableData = ["Beach", "Clubs", "Chill", "Dance"]
+    var HabitsData: [Habit] {
+        let realm = try! Realm()
+        return Array(realm.objects(Habit.self))
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,13 +52,14 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.testTableData.count
+        return self.HabitsData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "habitsCell", for: indexPath)
-        let habitText = self.testTableData[indexPath.row]
-        let habitEmoji = "🥰"
+        let habit = self.HabitsData[indexPath.row]
+        let habitText = habit.title
+        let habitEmoji = habit.icon
         cell.textLabel?.text = "\(habitEmoji) \t \(habitText)"
         
         cell.textLabel?.font = UIFont(name: "Arial", size: 24)

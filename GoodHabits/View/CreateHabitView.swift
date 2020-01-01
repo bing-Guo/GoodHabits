@@ -1,16 +1,3 @@
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-// POSSIBILITY OF SUCH DAMAGE.
-//
-// Created by Luc Dion on 2017-07-17.
 import UIKit
 import FlexLayout
 import PinLayout
@@ -52,16 +39,12 @@ class CreateHabitView: UIView {
         collectionView.register(EmojiCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = .white
         
-        print(frame.size.width)
-        print(frame.size.height)
         rootFlexContainer.flex.direction(.column).padding(12).define { (flex) in
             flex.addItem(nameColumnLabel).marginTop(12)
             flex.addItem(nameTextField).marginTop(12)
             flex.addItem(emojiColumnLabel).marginTop(12)
             flex.addItem(collectionView).height(200).marginTop(12)
         }
-        
-        print(emojiArray.count)
         
         addSubview(rootFlexContainer)
     }
@@ -73,11 +56,8 @@ class CreateHabitView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        // Layout the flexbox container using PinLayout
-        // NOTE: Could be also layouted by setting directly rootFlexContainer.frame
         rootFlexContainer.pin.top().horizontally().margin(pin.safeArea)
 
-        // Then let the flexbox container layout itself
         rootFlexContainer.flex.layout(mode: .adjustHeight)
     }
 }
@@ -90,10 +70,15 @@ extension CreateHabitView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! EmojiCollectionViewCell
-        print(indexPath.row)
+        
         cell.backgroundColor = .white
         cell.emojiLabel.text = self.emojiArray[indexPath.row]
 
         return cell
     }
+    
+    private func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        print("你選擇 \(self.emojiArray[indexPath.row])")
+    }
+
 }
