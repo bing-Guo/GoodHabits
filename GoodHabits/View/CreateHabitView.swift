@@ -5,6 +5,7 @@ import PinLayout
 class CreateHabitView: UIView {
     fileprivate let rootFlexContainer = UIView()
     fileprivate var collectionView: UICollectionView!
+    fileprivate let nameTextField = UITextField()
     
     fileprivate var emojiArray: [String] = ["💧", "🍏", "🍎" , "🥑", "🍳", "🥦", "🏀", "💪", "😀", "😃", "😄", "😁", "😆", "😂", "🤣", "🧐", "🤓", "😎", "😊", "⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🎱", "🎷", "🎺", "🎻", "🚗", "🚲", "🛵", "📱", "❤️", "🧡"]
     fileprivate struct emojiCollectionCellItem{
@@ -12,7 +13,7 @@ class CreateHabitView: UIView {
         var emoji: String?
     }
     fileprivate var choiceEmoji = emojiCollectionCellItem()
-            
+    
     init() {
         super.init(frame: .zero)
         backgroundColor = .white
@@ -24,11 +25,11 @@ class CreateHabitView: UIView {
         nameColumnLabel.text = "名稱"
         nameColumnLabel.numberOfLines = 0
         
-        let nameTextField = UITextField()
         nameTextField.placeholder = "輸入習慣名稱"
         nameTextField.borderStyle = .roundedRect
         nameTextField.clearButtonMode = .whileEditing
         nameTextField.returnKeyType = .done
+        nameTextField.delegate = Vi
         
         let emojiColumnLabel = UILabel()
         emojiColumnLabel.text = "圖示"
@@ -65,6 +66,10 @@ class CreateHabitView: UIView {
 
         rootFlexContainer.flex.layout(mode: .adjustHeight)
     }
+    
+//    func getNameTextField(view: UIView) -> UITextField {
+//        return nameTextField
+//    }
 }
 
 extension CreateHabitView: UICollectionViewDelegate, UICollectionViewDataSource{
