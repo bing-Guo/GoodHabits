@@ -6,7 +6,12 @@ class CreateHabitView: UIView {
     fileprivate let rootFlexContainer = UIView()
     fileprivate var collectionView: UICollectionView!
     
-    var emojiArray: [String] = ["💧", "🍏", "🍎" , "🥑", "🍳", "🥦", "🏀", "💪", "😀", "😃", "😄", "😁", "😆", "😂", "🤣", "🧐", "🤓", "😎", "😊", "⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🎱", "🎷", "🎺", "🎻", "🚗", "🚲", "🛵", "📱", "❤️", "🧡"]
+    fileprivate var emojiArray: [String] = ["💧", "🍏", "🍎" , "🥑", "🍳", "🥦", "🏀", "💪", "😀", "😃", "😄", "😁", "😆", "😂", "🤣", "🧐", "🤓", "😎", "😊", "⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🎱", "🎷", "🎺", "🎻", "🚗", "🚲", "🛵", "📱", "❤️", "🧡"]
+    fileprivate struct emojiCollectionCellItem{
+        var index: Int?
+        var emoji: String?
+    }
+    fileprivate var choiceEmoji = emojiCollectionCellItem()
             
     init() {
         super.init(frame: .zero)
@@ -30,9 +35,9 @@ class CreateHabitView: UIView {
         emojiColumnLabel.numberOfLines = 0
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: 30, height:30)
-
+        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        layout.itemSize = CGSize(width: 40, height:40)
+        
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -43,7 +48,7 @@ class CreateHabitView: UIView {
             flex.addItem(nameColumnLabel).marginTop(12)
             flex.addItem(nameTextField).marginTop(12)
             flex.addItem(emojiColumnLabel).marginTop(12)
-            flex.addItem(collectionView).height(200).marginTop(12)
+            flex.addItem(collectionView).height(400).marginTop(12)
         }
         
         addSubview(rootFlexContainer)
@@ -71,14 +76,16 @@ extension CreateHabitView: UICollectionViewDelegate, UICollectionViewDataSource{
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! EmojiCollectionViewCell
         
-        cell.backgroundColor = .white
         cell.emojiLabel.text = self.emojiArray[indexPath.row]
 
         return cell
     }
     
-    private func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("你選擇 \(self.emojiArray[indexPath.row])")
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        self.choiceEmoji.index = indexPath.row
+        self.choiceEmoji.emoji = self.emojiArray[indexPath.row]
+        print("你選擇 \(self.choiceEmoji)")
     }
 
 }
