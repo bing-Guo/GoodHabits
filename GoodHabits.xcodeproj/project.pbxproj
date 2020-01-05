@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		06EDCF1B6BD461385E9ED703 /* Pods_GoodHabits.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C466D54702E3C527C45BB8 /* Pods_GoodHabits.framework */; };
 		CF1B87E80869BB939442867B /* Pods_GoodHabitsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4293456D5C646661E7162746 /* Pods_GoodHabitsTests.framework */; };
-		FCA93FCE23C03ECD002BFC9C /* CreateHabitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA93FCD23C03ECD002BFC9C /* CreateHabitDelegate.swift */; };
 		FCC120B823BC51530097ED27 /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */; };
 		FCC120BA23BC5A130097ED27 /* CreateHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120B923BC5A130097ED27 /* CreateHabitView.swift */; };
 		FCC120BE23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120BD23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift */; };
@@ -40,7 +39,6 @@
 		8914170E5C54F90DCA796EF7 /* Pods-GoodHabitsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodHabitsTests.debug.xcconfig"; path = "Target Support Files/Pods-GoodHabitsTests/Pods-GoodHabitsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D1F59FB60FD36D146A179658 /* Pods-GoodHabits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodHabits.debug.xcconfig"; path = "Target Support Files/Pods-GoodHabits/Pods-GoodHabits.debug.xcconfig"; sourceTree = "<group>"; };
 		F3C466D54702E3C527C45BB8 /* Pods_GoodHabits.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodHabits.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FCA93FCD23C03ECD002BFC9C /* CreateHabitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitDelegate.swift; sourceTree = "<group>"; };
 		FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
 		FCC120B923BC5A130097ED27 /* CreateHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitView.swift; sourceTree = "<group>"; };
 		FCC120BD23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -98,14 +96,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		FCA93FCC23C03EA3002BFC9C /* Delegete */ = {
-			isa = PBXGroup;
-			children = (
-				FCA93FCD23C03ECD002BFC9C /* CreateHabitDelegate.swift */,
-			);
-			path = Delegete;
-			sourceTree = "<group>";
-		};
 		FCC120BF23BCE9980097ED27 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,7 +145,6 @@
 		FCDC8A1423BA538D0069BEC6 /* GoodHabits */ = {
 			isa = PBXGroup;
 			children = (
-				FCA93FCC23C03EA3002BFC9C /* Delegete */,
 				FCC120C123BCE9C10097ED27 /* Entity */,
 				FCC120C023BCE9AD0097ED27 /* Controller */,
 				FCC120BF23BCE9980097ED27 /* View */,
@@ -349,7 +338,6 @@
 				FCDC8A1A23BA538D0069BEC6 /* ViewController.swift in Sources */,
 				FCC120B823BC51530097ED27 /* CreateHabitViewController.swift in Sources */,
 				FCC120BA23BC5A130097ED27 /* CreateHabitView.swift in Sources */,
-				FCA93FCE23C03ECD002BFC9C /* CreateHabitDelegate.swift in Sources */,
 				FCC120C323BCE9DB0097ED27 /* Habit.swift in Sources */,
 				FCC120BE23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift in Sources */,
 				FCDC8A1623BA538D0069BEC6 /* AppDelegate.swift in Sources */,

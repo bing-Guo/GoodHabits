@@ -8,7 +8,7 @@ class CreateHabitView: UIView {
     fileprivate let nameTextField = UITextField()
     
     fileprivate var emojiArray: [String] = ["💧", "🍏", "🍎" , "🥑", "🍳", "🥦", "🏀", "💪", "😀", "😃", "😄", "😁", "😆", "😂", "🤣", "🧐", "🤓", "😎", "😊", "⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🎱", "🎷", "🎺", "🎻", "🚗", "🚲", "🛵", "📱", "❤️", "🧡"]
-    fileprivate struct emojiCollectionCellItem{
+    fileprivate struct emojiCollectionCellItem {
         var index: Int?
         var emoji: String?
     }
@@ -29,7 +29,6 @@ class CreateHabitView: UIView {
         nameTextField.borderStyle = .roundedRect
         nameTextField.clearButtonMode = .whileEditing
         nameTextField.returnKeyType = .done
-        nameTextField.delegate = Vi
         
         let emojiColumnLabel = UILabel()
         emojiColumnLabel.text = "圖示"
@@ -67,9 +66,27 @@ class CreateHabitView: UIView {
         rootFlexContainer.flex.layout(mode: .adjustHeight)
     }
     
-//    func getNameTextField(view: UIView) -> UITextField {
-//        return nameTextField
-//    }
+    fileprivate func getNameTextFieldValue() -> String {
+        if let text = nameTextField.text {
+            return text
+        }
+        return ""
+    }
+    
+    fileprivate func getChoiseEmoji() -> String {
+        if let text = self.choiceEmoji.emoji {
+            return text
+        }
+        return ""
+    }
+    
+    func getFormDate() -> Habit {
+        let habit: Habit = Habit()
+        habit.title = getNameTextFieldValue()
+        habit.icon = getChoiseEmoji()
+        
+        return habit
+    }
 }
 
 extension CreateHabitView: UICollectionViewDelegate, UICollectionViewDataSource{
@@ -84,13 +101,19 @@ extension CreateHabitView: UICollectionViewDelegate, UICollectionViewDataSource{
         cell.emojiLabel.text = self.emojiArray[indexPath.row]
 
         return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         self.choiceEmoji.index = indexPath.row
         self.choiceEmoji.emoji = self.emojiArray[indexPath.row]
-        print("你選擇 \(self.choiceEmoji)")
+        
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = .lightGray
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = .white
     }
 
 }

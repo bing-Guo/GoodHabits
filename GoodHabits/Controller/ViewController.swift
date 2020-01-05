@@ -31,6 +31,13 @@ class ViewController: UIViewController {
         view.addSubview(habitsTableView)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        print("reload")
+        self.habitsTableView.reloadData()
+    }
+    
     @objc func passToCreateHabitView() {
         self.navigationController?.pushViewController(CreateHabitViewController(), animated: true)
     }
