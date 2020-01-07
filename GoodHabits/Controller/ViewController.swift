@@ -14,17 +14,18 @@ class ViewController: UIViewController {
     let greenColorHex = "#5CB85C"
     
     var todayHabits: [TodayHabit] {
+        let realm = try! Realm()
+        let nowDateString = self.getNowDate()
+        
         var habitStatus: [HabitStatus] {
-            let nowDateString = self.getNowDate()
-            let realm = try! Realm()
             return Array(realm.objects(HabitStatus.self).filter("date = '\(nowDateString)'"))
         }
         
         var habitsData: [Habit] {
-            let realm = try! Realm()
             return Array(realm.objects(Habit.self))
         }
         
+//        print("fileURL: \(realm.configuration.fileURL!)")
         var todayHabit: [TodayHabit] = []
         
         for habit in habitsData {
@@ -104,37 +105,58 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let cell = tableView.cellForRow(at: indexPath)
+        let chioseHabit = self.todayHabits[indexPath.row]
+        let nowDateString = self.getNowDate()
         
-        let shareAction = UIContextualAction(style: .normal, title: "Check") { (action, sourceView, completionHandler) in
-            
-            let chioseHabit = self.todayHabits[indexPath.row]
-            let nowDateString = self.getNowDate()
-            
-            let realm = try! Realm()
-            
+        let checkAction = UIContextualAction(style: .normal, title: "Check") { (action, sourceView, completionHandler) in
             let habitStatus: HabitStatus = HabitStatus(id: chioseHabit.id, date: nowDateString)
-            
-            try! realm.write {
-                realm.add(habitStatus)
-            }
-            
-            let cell = tableView.cellForRow(at: indexPath)
+            self.appendHabitStatusToRealm(habitStatus: habitStatus)
             cell?.backgroundColor = UIColor(hex: self.greenColorHex)
-            print("fileURL: \(realm.configuration.fileURL!)")
-            
             completionHandler(true)
         }
+        checkAction.backgroundColor = UIColor(hex: self.greenColorHex)
+        checkAction.image = UIImage(systemName: "checkmark.circle")
         
-        shareAction.backgroundColor = UIColor(hex: self.greenColorHex)
-        shareAction.image = UIImage(systemName: "checkmark.circle")
+        let unCheckAction = UIContextualAction(style: .normal, title: "Uncheck") { (action, sourceView, completionHandler) in
+            self.deleteHabitStatusInRealm(habitID: chioseHabit.id, date: nowDateString)
+            cell?.backgroundColor = .white
+            completionHandler(true)
+        }
+        unCheckAction.backgroundColor = UIColor(hex: "#F0AD4E")
+        unCheckAction.image = UIImage(systemName: "arrowshape.turn.up.left.circle")
         
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [shareAction])
+        let swipeConfiguration: UISwipeActionsConfiguration
+        if chioseHabit.checked {
+            swipeConfiguration = UISwipeActionsConfiguration(actions: [unCheckAction])
+        } else {
+            swipeConfiguration = UISwipeActionsConfiguration(actions: [checkAction])
+        }
+        
         return swipeConfiguration
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.navigationController?.pushViewController(CalendarViewController(), animated: true)
     
+    }
+    
+    fileprivate func appendHabitStatusToRealm(habitStatus: HabitStatus) {
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.add(habitStatus)
+        }
+    }
+    
+    fileprivate func deleteHabitStatusInRealm(habitID: String, date: String) {
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "compoundKey = %s", habitID+date)
+        let habitStatus = realm.objects(HabitStatus.self).filter(predicate)
+        
+        try! realm.write {
+            realm.delete(habitStatus)
+        }
     }
     
     fileprivate func getNowDate() -> String {
