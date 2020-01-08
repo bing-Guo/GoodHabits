@@ -9,6 +9,7 @@ target 'GoodHabits' do
   pod 'FlexLayout'
   pod 'RealmSwift', '~> 3.20.0'
   pod 'PinLayout'
+  pod 'JTAppleCalendar', '~> 7.1'
 
   target 'GoodHabitsTests' do
     inherit! :search_paths
