@@ -10,8 +10,9 @@
 		06EDCF1B6BD461385E9ED703 /* Pods_GoodHabits.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C466D54702E3C527C45BB8 /* Pods_GoodHabits.framework */; };
 		CF1B87E80869BB939442867B /* Pods_GoodHabitsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4293456D5C646661E7162746 /* Pods_GoodHabitsTests.framework */; };
 		FC585CED23C3FCC300B8B23A /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC585CEC23C3FCC300B8B23A /* CalendarViewController.swift */; };
-		FC585CEF23C61D6600B8B23A /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC585CEE23C61D6600B8B23A /* CalendarViewCell.swift */; };
+		FC585CEF23C61D6600B8B23A /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC585CEE23C61D6600B8B23A /* DateCell.swift */; };
 		FC585CF123C74B3D00B8B23A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC585CF023C74B3D00B8B23A /* CalendarView.swift */; };
+		FC92B48423CBE31D002DAD66 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC92B48323CBE31D002DAD66 /* DateHeader.swift */; };
 		FCA93FD123C20AFA002BFC9C /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA93FD023C20AFA002BFC9C /* UIColor+Ext.swift */; };
 		FCA93FD323C20EEE002BFC9C /* HabitStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA93FD223C20EEE002BFC9C /* HabitStatus.swift */; };
 		FCC120B823BC51530097ED27 /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */; };
@@ -45,8 +46,9 @@
 		D1F59FB60FD36D146A179658 /* Pods-GoodHabits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodHabits.debug.xcconfig"; path = "Target Support Files/Pods-GoodHabits/Pods-GoodHabits.debug.xcconfig"; sourceTree = "<group>"; };
 		F3C466D54702E3C527C45BB8 /* Pods_GoodHabits.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodHabits.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC585CEC23C3FCC300B8B23A /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		FC585CEE23C61D6600B8B23A /* CalendarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
+		FC585CEE23C61D6600B8B23A /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		FC585CF023C74B3D00B8B23A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		FC92B48323CBE31D002DAD66 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		FCA93FD023C20AFA002BFC9C /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		FCA93FD223C20EEE002BFC9C /* HabitStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatus.swift; sourceTree = "<group>"; };
 		FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
@@ -119,8 +121,9 @@
 			children = (
 				FCC120BD23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift */,
 				FCC120B923BC5A130097ED27 /* CreateHabitView.swift */,
-				FC585CEE23C61D6600B8B23A /* CalendarViewCell.swift */,
+				FC585CEE23C61D6600B8B23A /* DateCell.swift */,
 				FC585CF023C74B3D00B8B23A /* CalendarView.swift */,
+				FC92B48323CBE31D002DAD66 /* DateHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,9 +366,10 @@
 				FC585CF123C74B3D00B8B23A /* CalendarView.swift in Sources */,
 				FC585CED23C3FCC300B8B23A /* CalendarViewController.swift in Sources */,
 				FCC120BA23BC5A130097ED27 /* CreateHabitView.swift in Sources */,
+				FC92B48423CBE31D002DAD66 /* DateHeader.swift in Sources */,
 				FCC120C323BCE9DB0097ED27 /* Habit.swift in Sources */,
 				FCC120BE23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift in Sources */,
-				FC585CEF23C61D6600B8B23A /* CalendarViewCell.swift in Sources */,
+				FC585CEF23C61D6600B8B23A /* DateCell.swift in Sources */,
 				FCA93FD123C20AFA002BFC9C /* UIColor+Ext.swift in Sources */,
 				FCDC8A1623BA538D0069BEC6 /* AppDelegate.swift in Sources */,
 				FCDC8A1823BA538D0069BEC6 /* SceneDelegate.swift in Sources */,

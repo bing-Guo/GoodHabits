@@ -12,7 +12,10 @@ class CalendarView: UIView {
         super.init(frame: .zero)
         
         calendarView = JTAppleCalendarView(frame: .zero)
-        calendarView.register(CalendarViewCell.self, forCellWithReuseIdentifier: "dateCell")
+        calendarView.register(DateCell.self, forCellWithReuseIdentifier: "dateCell")
+        calendarView.register(DateHeader.self,
+                              forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                              withReuseIdentifier: "DateHeader")
         calendarView.ibCalendarDelegate = self
         calendarView.ibCalendarDataSource = self
         calendarView.scrollDirection = .horizontal
@@ -31,7 +34,7 @@ class CalendarView: UIView {
         super.layoutSubviews()
 
         rootFlexContainer.pin.top().horizontally().margin(pin.safeArea)
-        calendarView.pin.height(260)
+        calendarView.pin.height(200)
 
         rootFlexContainer.flex.layout(mode: .adjustHeight)
     }
@@ -43,7 +46,7 @@ class CalendarView: UIView {
 }
 extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
-        let cell = cell as! CalendarViewCell
+        let cell = cell as! DateCell
         cell.dateLabel.text = cellState.text
         
         configureCell(view: cell, cellState: cellState)
@@ -60,17 +63,8 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
         return parameters
     }
     
-//    func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
-//        let formatter = DateFormatter()  // Declare this outside, to avoid instancing this heavy class multiple times.
-//        formatter.dateFormat = "MMM"
-//        
-//        let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "DateHeader", for: indexPath) as! DateHeader
-//        header.monthTitle.text = formatter.string(from: range.start)
-//        return header
-//    }
-    
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
-        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! CalendarViewCell
+        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCell
         cell.dateLabel?.text = cellState.text
         
         self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
@@ -79,16 +73,30 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
     }
     
     func configureCell(view: JTAppleCell?, cellState: CellState) {
-        guard let cell = view as? CalendarViewCell else { return }
+        guard let cell = view as? DateCell else { return }
         cell.dateLabel.text = cellState.text
         handleCellTextColor(cell: cell, cellState: cellState)
     }
     
-    fileprivate func handleCellTextColor(cell: CalendarViewCell, cellState: CellState) {
+    fileprivate func handleCellTextColor(cell: DateCell, cellState: CellState) {
         if cellState.dateBelongsTo == .thisMonth {
             cell.dateLabel.textColor = UIColor.black
         } else {
             cell.dateLabel.textColor = UIColor.gray
         }
+    }
+    
+    func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
+        let formatter = DateFormatter()  // Declare this outside, to avoid instancing this heavy class multiple times.
+        formatter.dateFormat = "MMM"
+
+        let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "DateHeader", for: indexPath) as! DateHeader
+        header.monthTitle.text = formatter.string(from: range.start)
+        
+        return header
+    }
+    
+    func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
+        return MonthSize(defaultSize: 50)
     }
 }

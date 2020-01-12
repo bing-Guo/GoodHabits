@@ -9,7 +9,7 @@
 import UIKit
 import JTAppleCalendar
 
-class CalendarViewCell: JTAppleCell {
+class DateCell: JTAppleCell {
     var dateLabel: UILabel!
     
     override init(frame: CGRect) {
