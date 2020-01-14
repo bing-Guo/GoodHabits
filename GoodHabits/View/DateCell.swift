@@ -6,6 +6,7 @@ import JTAppleCalendar
 class DateCell: JTAppleCell {
     let rootFlexContainer = UIView()
     var dateLabel: UILabel!
+    var todayLabel: UILabel!
     var checked: UIView!
     
     override init(frame: CGRect) {
@@ -15,11 +16,17 @@ class DateCell: JTAppleCell {
         dateLabel.textColor = .black
         dateLabel.textAlignment = .center
         
+        todayLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        todayLabel.textColor = .black
+        todayLabel.textAlignment = .center
+        todayLabel.text = "今"
+        
         checked = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 10))
         checked.backgroundColor = .red
         
         rootFlexContainer.flex.direction(.column).define { (flex) in
             flex.addItem(dateLabel)
+            flex.addItem(todayLabel)
             flex.addItem(checked).marginTop(12)
         }
         self.addSubview(rootFlexContainer)

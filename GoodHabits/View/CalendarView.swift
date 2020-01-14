@@ -85,13 +85,21 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
         cell.dateLabel.text = cellState.text
         handleCellTextColor(cell: cell, cellState: cellState)
         handleCellEvents(cell: cell, cellState: cellState)
+        handleCellIsToday(cell: cell, cellState: cellState)
+    }
+    
+    fileprivate func handleCellTextColor(cell: DateCell, cellState: CellState) {
+        if cellState.dateBelongsTo == .thisMonth {
+            cell.dateLabel.textColor = UIColor.black
+        } else {
+            cell.dateLabel.textColor = UIColor.gray
+        }
     }
     
     func handleCellEvents(cell: DateCell, cellState: CellState) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let dateString = formatter.string(from: cellState.date)
-        print(calendarDataSource)
         
         if calendarDataSource[dateString] == nil {
             cell.checked.isHidden = true
@@ -100,11 +108,17 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
         }
     }
     
-    fileprivate func handleCellTextColor(cell: DateCell, cellState: CellState) {
-        if cellState.dateBelongsTo == .thisMonth {
-            cell.dateLabel.textColor = UIColor.black
+    fileprivate func handleCellIsToday(cell: DateCell, cellState: CellState) {
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateString = formatter.string(from: cellState.date)
+        let todayString = formatter.string(from: today)
+        
+        if todayString == dateString {
+            cell.todayLabel.isHidden = false
         } else {
-            cell.dateLabel.textColor = UIColor.gray
+            cell.todayLabel.isHidden = true
         }
     }
     
