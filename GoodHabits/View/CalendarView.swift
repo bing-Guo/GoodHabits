@@ -6,7 +6,8 @@ import JTAppleCalendar
 class CalendarView: UIView {
     fileprivate let rootFlexContainer = UIView()
     fileprivate var calendarView: JTAppleCalendarView!
-    fileprivate let greenColorHex = "#5CB85C"
+    fileprivate let greenColorHex = "#FFD7B3"
+    var calendarDataSource = [String: String]()
     
     init() {
         super.init(frame: .zero)
@@ -22,11 +23,14 @@ class CalendarView: UIView {
         calendarView.scrollingMode = .stopAtEachCalendarFrame
         calendarView.showsHorizontalScrollIndicator = false
         calendarView.backgroundColor = UIColor(hex: greenColorHex)
-        rootFlexContainer.backgroundColor = .red
+        calendarView.minimumLineSpacing = 0
+        calendarView.minimumInteritemSpacing = 0
+        calendarView.scrollToDate(Date(),animateScroll: false)
         
         rootFlexContainer.flex.direction(.column).padding(12).define { (flex) in
-            flex.addItem(calendarView).marginTop(12)
+            flex.addItem(calendarView)
         }
+        
         addSubview(rootFlexContainer)
     }
     
@@ -34,7 +38,7 @@ class CalendarView: UIView {
         super.layoutSubviews()
 
         rootFlexContainer.pin.top().horizontally().margin(pin.safeArea)
-        calendarView.pin.height(200)
+        calendarView.pin.height(400)
 
         rootFlexContainer.flex.layout(mode: .adjustHeight)
     }
@@ -56,10 +60,14 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy MM dd"
 
-        let startDate = formatter.date(from: "2016 02 01")!
+        let startDate = formatter.date(from: "2019 12 01")!
         let endDate = Date()
-        let parameters = ConfigurationParameters(startDate: startDate,
-                                                 endDate: endDate)
+        
+        let parameters = ConfigurationParameters(
+            startDate: startDate,
+            endDate: endDate,
+            generateInDates: .forAllMonths,
+            generateOutDates: .off)
         return parameters
     }
     
@@ -76,6 +84,20 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
         guard let cell = view as? DateCell else { return }
         cell.dateLabel.text = cellState.text
         handleCellTextColor(cell: cell, cellState: cellState)
+        handleCellEvents(cell: cell, cellState: cellState)
+    }
+    
+    func handleCellEvents(cell: DateCell, cellState: CellState) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateString = formatter.string(from: cellState.date)
+        print(calendarDataSource)
+        
+        if calendarDataSource[dateString] == nil {
+            cell.checked.isHidden = true
+        } else {
+            cell.checked.isHidden = false
+        }
     }
     
     fileprivate func handleCellTextColor(cell: DateCell, cellState: CellState) {
@@ -88,7 +110,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
     
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
         let formatter = DateFormatter()  // Declare this outside, to avoid instancing this heavy class multiple times.
-        formatter.dateFormat = "MMM"
+        formatter.dateFormat = "MMMM yyyy"
 
         let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "DateHeader", for: indexPath) as! DateHeader
         header.monthTitle.text = formatter.string(from: range.start)
@@ -97,6 +119,6 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
     }
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
-        return MonthSize(defaultSize: 50)
+        return MonthSize(defaultSize: 80)
     }
 }

@@ -25,7 +25,6 @@ class ViewController: UIViewController {
             return Array(realm.objects(Habit.self))
         }
         
-//        print("fileURL: \(realm.configuration.fileURL!)")
         var todayHabit: [TodayHabit] = []
         
         for habit in habitsData {
@@ -136,8 +135,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return swipeConfiguration
     }
     
+    // pass to calendar
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(CalendarViewController(), animated: true)
+        let vc = CalendarViewController()
+        vc.habitID = todayHabits[indexPath.row].id
+        vc.habitTitle = todayHabits[indexPath.row].title
+        self.navigationController?.pushViewController(vc, animated: true)
     
     }
     
