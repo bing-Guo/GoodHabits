@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     
     var todayHabits: [TodayHabit] {
         let realm = try! Realm()
+//        print("fileURL: \(realm.configuration.fileURL!)")
         let nowDateString = self.getNowDate()
         
         var habitStatus: [HabitStatus] {
@@ -66,23 +67,53 @@ class ViewController: UIViewController {
         self.habitsTableView.reloadData()
     }
     
-    @objc func passToCreateHabitView() {
-        self.navigationController?.pushViewController(CreateHabitViewController(), animated: true)
-    }
-    
     func settingNavigationBar() {
         self.view.backgroundColor = .white
         self.title = "習慣"
-        
-        let rightButton = UIBarButtonItem(
+        normalMode()
+    }
+    
+    func normalMode() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "trash"),
+            style: .plain,
+            target: self,
+            action: #selector(switchEditMode)
+        )
+
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "plus"),
             style: .plain,
             target: self,
             action: #selector(passToCreateHabitView)
         )
-        
-        self.navigationItem.rightBarButtonItem = rightButton
     }
+    
+    func editMode() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(switchEditMode)
+        )
+
+        self.navigationItem.rightBarButtonItem = nil
+    }
+    
+    @objc func passToCreateHabitView() {
+        self.navigationController?.pushViewController(CreateHabitViewController(), animated: true)
+    }
+    
+    @objc func switchEditMode() {
+        habitsTableView.setEditing(!habitsTableView.isEditing, animated: true)
+        
+        if (!habitsTableView.isEditing) {
+            normalMode()
+        } else {
+            editMode()
+        }
+    }
+    
+    @objc func addBtnAction() {  print("addBtnAction")  }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -104,6 +135,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let cell = tableView.cellForRow(at: indexPath)
         let chioseHabit = self.todayHabits[indexPath.row]
         let nowDateString = self.getNowDate()
@@ -125,14 +157,34 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         unCheckAction.backgroundColor = UIColor(hex: "#F0AD4E")
         unCheckAction.image = UIImage(systemName: "arrowshape.turn.up.left.circle")
         
-        let swipeConfiguration: UISwipeActionsConfiguration
-        if chioseHabit.checked {
-            swipeConfiguration = UISwipeActionsConfiguration(actions: [unCheckAction])
-        } else {
-            swipeConfiguration = UISwipeActionsConfiguration(actions: [checkAction])
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, sourceView, completionHandler) in
+            self.deleteHabitInRealm(habitID: chioseHabit.id)
+            
+            
+            self.habitsTableView.beginUpdates()
+            self.habitsTableView.deleteRows(at: [indexPath], with: .fade)
+            self.habitsTableView.endUpdates()
+            completionHandler(true)
+        }
+        deleteAction.backgroundColor = UIColor(hex: "#F0AD4E")
+        
+        var swipeConfiguration: UISwipeActionsConfiguration? = nil
+        
+        if(!tableView.isEditing) {
+            if chioseHabit.checked {
+                swipeConfiguration = UISwipeActionsConfiguration(actions: [unCheckAction])
+            } else {
+                swipeConfiguration = UISwipeActionsConfiguration(actions: [checkAction])
+            }
+        }else {
+            swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
         }
         
         return swipeConfiguration
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
     // pass to calendar
@@ -158,6 +210,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let habitStatus = realm.objects(HabitStatus.self).filter(predicate)
         
         try! realm.write {
+            realm.delete(habitStatus)
+        }
+    }
+    
+    fileprivate func deleteHabitInRealm(habitID: String) {
+        let realm = try! Realm()
+        let habits = realm.objects(Habit.self).filter("id = '\(habitID)'")
+        let habitStatus = realm.objects(HabitStatus.self).filter("id = '\(habitID)'")
+        
+        try! realm.write {
+            realm.delete(habits)
             realm.delete(habitStatus)
         }
     }
