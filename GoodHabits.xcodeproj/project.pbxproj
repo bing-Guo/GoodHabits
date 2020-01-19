@@ -13,6 +13,7 @@
 		FC585CEF23C61D6600B8B23A /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC585CEE23C61D6600B8B23A /* DateCell.swift */; };
 		FC585CF123C74B3D00B8B23A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC585CF023C74B3D00B8B23A /* CalendarView.swift */; };
 		FC92B48423CBE31D002DAD66 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC92B48323CBE31D002DAD66 /* DateHeader.swift */; };
+		FC92B48723D42B1D002DAD66 /* HabitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC92B48623D42B1D002DAD66 /* HabitTableViewCell.swift */; };
 		FCA93FD123C20AFA002BFC9C /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA93FD023C20AFA002BFC9C /* UIColor+Ext.swift */; };
 		FCA93FD323C20EEE002BFC9C /* HabitStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA93FD223C20EEE002BFC9C /* HabitStatus.swift */; };
 		FCC120B823BC51530097ED27 /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */; };
@@ -49,6 +50,7 @@
 		FC585CEE23C61D6600B8B23A /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		FC585CF023C74B3D00B8B23A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		FC92B48323CBE31D002DAD66 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
+		FC92B48623D42B1D002DAD66 /* HabitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTableViewCell.swift; sourceTree = "<group>"; };
 		FCA93FD023C20AFA002BFC9C /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		FCA93FD223C20EEE002BFC9C /* HabitStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatus.swift; sourceTree = "<group>"; };
 		FCC120B723BC51530097ED27 /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FC92B48523D42AC8002DAD66 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				FC92B48323CBE31D002DAD66 /* DateHeader.swift */,
+				FC585CEE23C61D6600B8B23A /* DateCell.swift */,
+				FC585CF023C74B3D00B8B23A /* CalendarView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		FCA93FCF23C20AE1002BFC9C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,11 +131,10 @@
 		FCC120BF23BCE9980097ED27 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FC92B48523D42AC8002DAD66 /* Calendar */,
 				FCC120BD23BCDEBF0097ED27 /* EmojiCollectionViewCell.swift */,
 				FCC120B923BC5A130097ED27 /* CreateHabitView.swift */,
-				FC585CEE23C61D6600B8B23A /* DateCell.swift */,
-				FC585CF023C74B3D00B8B23A /* CalendarView.swift */,
-				FC92B48323CBE31D002DAD66 /* DateHeader.swift */,
+				FC92B48623D42B1D002DAD66 /* HabitTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -373,6 +384,7 @@
 				FCA93FD123C20AFA002BFC9C /* UIColor+Ext.swift in Sources */,
 				FCDC8A1623BA538D0069BEC6 /* AppDelegate.swift in Sources */,
 				FCDC8A1823BA538D0069BEC6 /* SceneDelegate.swift in Sources */,
+				FC92B48723D42B1D002DAD66 /* HabitTableViewCell.swift in Sources */,
 				FCA93FD323C20EEE002BFC9C /* HabitStatus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     var todayHabits: [TodayHabit] {
         let realm = try! Realm()
-//        print("fileURL: \(realm.configuration.fileURL!)")
+        print("fileURL: \(realm.configuration.fileURL!)")
         let nowDateString = self.getNowDate()
         
         var habitStatus: [HabitStatus] {
@@ -55,8 +55,9 @@ class ViewController: UIViewController {
         habitsTableView.delegate = self
         habitsTableView.dataSource = self
         habitsTableView.backgroundColor = .white
+        habitsTableView.separatorStyle = .none
         
-        habitsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "habitsCell")
+        habitsTableView.register(HabitTableViewCell.self, forCellReuseIdentifier: "habitsCell")
         view.addSubview(habitsTableView)
     }
     
@@ -122,28 +123,30 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "habitsCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "habitsCell", for: indexPath) as! HabitTableViewCell
         let habit = self.todayHabits[indexPath.row]
         let habitText = habit.title
         let habitEmoji = habit.icon
-        cell.textLabel?.text = "\(habitEmoji) \t \(habitText)"
-        cell.textLabel?.font = UIFont(name: "Arial", size: 24)
         
-        cell.backgroundColor = (habit.checked) ?UIColor(hex: self.greenColorHex) :.white
+        cell.iconLabel.text = "\(habitEmoji)"
+        cell.titleLabel.text = "\(habitText)"
+        
+        cell.isCheck(habit.checked)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let cell = tableView.cellForRow(at: indexPath)
+        let cell = tableView.cellForRow(at: indexPath) as! HabitTableViewCell
         let chioseHabit = self.todayHabits[indexPath.row]
         let nowDateString = self.getNowDate()
         
         let checkAction = UIContextualAction(style: .normal, title: "Check") { (action, sourceView, completionHandler) in
             let habitStatus: HabitStatus = HabitStatus(id: chioseHabit.id, date: nowDateString)
             self.appendHabitStatusToRealm(habitStatus: habitStatus)
-            cell?.backgroundColor = UIColor(hex: self.greenColorHex)
+            
+            cell.isCheck(true)
             completionHandler(true)
         }
         checkAction.backgroundColor = UIColor(hex: self.greenColorHex)
@@ -151,7 +154,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         let unCheckAction = UIContextualAction(style: .normal, title: "Uncheck") { (action, sourceView, completionHandler) in
             self.deleteHabitStatusInRealm(habitID: chioseHabit.id, date: nowDateString)
-            cell?.backgroundColor = .white
+            cell.isCheck(false)
             completionHandler(true)
         }
         unCheckAction.backgroundColor = UIColor(hex: "#F0AD4E")
@@ -183,6 +186,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return swipeConfiguration
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(90)
+    }
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -206,8 +213,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     fileprivate func deleteHabitStatusInRealm(habitID: String, date: String) {
         let realm = try! Realm()
-        let predicate = NSPredicate(format: "compoundKey = %s", habitID+date)
-        let habitStatus = realm.objects(HabitStatus.self).filter(predicate)
+        let habitStatus = realm.objects(HabitStatus.self).filter("compoundKey = '\(habitID+date)'")
         
         try! realm.write {
             realm.delete(habitStatus)
