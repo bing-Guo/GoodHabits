@@ -22,7 +22,7 @@ class CalendarView: UIView {
         calendarView.scrollDirection = .horizontal
         calendarView.scrollingMode = .stopAtEachCalendarFrame
         calendarView.showsHorizontalScrollIndicator = false
-        calendarView.backgroundColor = UIColor(hex: greenColorHex)
+        calendarView.backgroundColor = UIColor(hex: "#333333")
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
         calendarView.scrollToDate(Date(),animateScroll: false)
@@ -90,9 +90,9 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
     
     fileprivate func handleCellTextColor(cell: DateCell, cellState: CellState) {
         if cellState.dateBelongsTo == .thisMonth {
-            cell.dateLabel.textColor = UIColor.black
+            cell.dateLabel.textColor = .white
         } else {
-            cell.dateLabel.textColor = UIColor.gray
+            cell.dateLabel.textColor = .lightGray
         }
     }
     

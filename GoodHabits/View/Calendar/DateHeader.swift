@@ -18,16 +18,16 @@ class DateHeader: JTAppleCollectionReusableView {
         super.init(frame: frame)
         
         monthTitle = UILabel(frame: .zero)
-        monthTitle.textColor = .black
+        monthTitle.textColor = .white
         monthTitle.textAlignment = .center
         
-        monLabel.text = "MON"
-        tueLabel.text = "TUE"
-        wedLabel.text = "WED"
-        thuLabel.text = "THU"
-        friLabel.text = "FRI"
-        satLabel.text = "SAT"
-        sunLabel.text = "SUN"
+        monLabel.text = "一"
+        tueLabel.text = "二"
+        wedLabel.text = "三"
+        thuLabel.text = "四"
+        friLabel.text = "五"
+        satLabel.text = "六"
+        sunLabel.text = "日"
         monLabel.textAlignment = .center
         tueLabel.textAlignment = .center
         wedLabel.textAlignment = .center
@@ -42,13 +42,13 @@ class DateHeader: JTAppleCollectionReusableView {
             }
             
             flex.addItem().direction(.row).define { (flex) in
+                flex.addItem(sunLabel).grow(1)
                 flex.addItem(monLabel).grow(1)
                 flex.addItem(tueLabel).grow(1)
                 flex.addItem(wedLabel).grow(1)
                 flex.addItem(thuLabel).grow(1)
                 flex.addItem(friLabel).grow(1)
                 flex.addItem(satLabel).grow(1)
-                flex.addItem(sunLabel).grow(1)
             }
         }
         self.addSubview(rootFlexContainer)

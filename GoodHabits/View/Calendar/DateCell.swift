@@ -13,11 +13,11 @@ class DateCell: JTAppleCell {
         super.init(frame: frame)
         
         dateLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        dateLabel.textColor = .black
+        dateLabel.textColor = .white
         dateLabel.textAlignment = .center
         
         todayLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        todayLabel.textColor = .black
+        todayLabel.textColor = .white
         todayLabel.textAlignment = .center
         todayLabel.text = "今"
         

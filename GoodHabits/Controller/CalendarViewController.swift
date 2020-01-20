@@ -19,10 +19,29 @@ class CalendarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
-        
-        self.navigationItem.title = habitTitle
+        self.view.backgroundColor = UIColor(hex: "#333333")
         
         mainView.calendarDataSource = habitsData
+        settingNavigationBar()
+    }
+    
+    func settingNavigationBar() {
+        navigationItem.title = habitTitle
+        
+        let font = UIFont(name: "Helvetica", size: 28)!
+        
+        let titleDict: NSDictionary = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font: font
+        ]
+        
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.barTintColor = .white
+        
+        self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [NSAttributedString.Key : Any]
+        
+        
+        self.navigationController?.navigationBar.barTintColor  = UIColor(hex: "#333333")
+        
     }
 }

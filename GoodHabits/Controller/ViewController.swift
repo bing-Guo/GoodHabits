@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     var todayHabits: [TodayHabit] {
         let realm = try! Realm()
-        print("fileURL: \(realm.configuration.fileURL!)")
+//        print("fileURL: \(realm.configuration.fileURL!)")
         let nowDateString = self.getNowDate()
         
         var habitStatus: [HabitStatus] {
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         habitsTableView = UITableView(frame: self.view.bounds, style: .plain)
         habitsTableView.delegate = self
         habitsTableView.dataSource = self
-        habitsTableView.backgroundColor = .white
+        habitsTableView.backgroundColor = UIColor(hex: "#333333")
         habitsTableView.separatorStyle = .none
         
         habitsTableView.register(HabitTableViewCell.self, forCellReuseIdentifier: "habitsCell")
@@ -69,19 +69,23 @@ class ViewController: UIViewController {
     }
     
     func settingNavigationBar() {
-        self.view.backgroundColor = .white
-        self.title = "習慣"
-        normalMode()
-    }
-    
-    func normalMode() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "trash"),
-            style: .plain,
-            target: self,
-            action: #selector(switchEditMode)
-        )
-
+        navigationItem.title = "習慣"
+        
+        let font = UIFont(name: "Helvetica", size: 28)!
+        
+        let titleDict: NSDictionary = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font: font
+        ]
+        
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.barTintColor = .white
+        
+        self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [NSAttributedString.Key : Any]
+        
+        
+        self.navigationController?.navigationBar.barTintColor  = UIColor(hex: "#333333")
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "plus"),
             style: .plain,
@@ -90,30 +94,9 @@ class ViewController: UIViewController {
         )
     }
     
-    func editMode() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: #selector(switchEditMode)
-        )
-
-        self.navigationItem.rightBarButtonItem = nil
-    }
-    
     @objc func passToCreateHabitView() {
         self.navigationController?.pushViewController(CreateHabitViewController(), animated: true)
     }
-    
-    @objc func switchEditMode() {
-        habitsTableView.setEditing(!habitsTableView.isEditing, animated: true)
-        
-        if (!habitsTableView.isEditing) {
-            normalMode()
-        } else {
-            editMode()
-        }
-    }
-    
     @objc func addBtnAction() {  print("addBtnAction")  }
 }
 
@@ -124,6 +107,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "habitsCell", for: indexPath) as! HabitTableViewCell
+        
         let habit = self.todayHabits[indexPath.row]
         let habitText = habit.title
         let habitEmoji = habit.icon
@@ -136,54 +120,62 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func checkAction(cell: HabitTableViewCell, chioseHabit: TodayHabit) {
         
-        let cell = tableView.cellForRow(at: indexPath) as! HabitTableViewCell
-        let chioseHabit = self.todayHabits[indexPath.row]
         let nowDateString = self.getNowDate()
         
-        let checkAction = UIContextualAction(style: .normal, title: "Check") { (action, sourceView, completionHandler) in
-            let habitStatus: HabitStatus = HabitStatus(id: chioseHabit.id, date: nowDateString)
-            self.appendHabitStatusToRealm(habitStatus: habitStatus)
+        let habitStatus: HabitStatus = HabitStatus(id: chioseHabit.id, date: nowDateString)
+        self.appendHabitStatusToRealm(habitStatus: habitStatus)
+        
+        cell.isCheck(true)
+    }
+    
+    func uncheckAction(cell: HabitTableViewCell, chioseHabit: TodayHabit) {
+        
+        let nowDateString = self.getNowDate()
+        
+        let habitStatus: HabitStatus = HabitStatus(id: chioseHabit.id, date: nowDateString)
+        self.appendHabitStatusToRealm(habitStatus: habitStatus)
+        
+        cell.isCheck(false)
+    }
+    
+    func deleteAction(indexPath: IndexPath) {
+        let chioseHabit = self.todayHabits[indexPath.row]
+        
+        self.deleteHabitInRealm(habitID: chioseHabit.id)
+        self.habitsTableView.beginUpdates()
+        self.habitsTableView.deleteRows(at: [indexPath], with: .fade)
+        self.habitsTableView.endUpdates()
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
             
-            cell.isCheck(true)
-            completionHandler(true)
-        }
-        checkAction.backgroundColor = UIColor(hex: self.greenColorHex)
-        checkAction.image = UIImage(systemName: "checkmark.circle")
-        
-        let unCheckAction = UIContextualAction(style: .normal, title: "Uncheck") { (action, sourceView, completionHandler) in
-            self.deleteHabitStatusInRealm(habitID: chioseHabit.id, date: nowDateString)
-            cell.isCheck(false)
-            completionHandler(true)
-        }
-        unCheckAction.backgroundColor = UIColor(hex: "#F0AD4E")
-        unCheckAction.image = UIImage(systemName: "arrowshape.turn.up.left.circle")
-        
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, sourceView, completionHandler) in
-            self.deleteHabitInRealm(habitID: chioseHabit.id)
+            let cell = tableView.cellForRow(at: indexPath) as! HabitTableViewCell
+            let chioseHabit = self.todayHabits[indexPath.row]
             
-            
-            self.habitsTableView.beginUpdates()
-            self.habitsTableView.deleteRows(at: [indexPath], with: .fade)
-            self.habitsTableView.endUpdates()
-            completionHandler(true)
-        }
-        deleteAction.backgroundColor = UIColor(hex: "#F0AD4E")
-        
-        var swipeConfiguration: UISwipeActionsConfiguration? = nil
-        
-        if(!tableView.isEditing) {
-            if chioseHabit.checked {
-                swipeConfiguration = UISwipeActionsConfiguration(actions: [unCheckAction])
-            } else {
-                swipeConfiguration = UISwipeActionsConfiguration(actions: [checkAction])
+            let check = UIAction(title: "Check", image: UIImage(systemName: "checkmark.circle"), identifier: nil) { action in
+                self.checkAction(cell: cell, chioseHabit: chioseHabit)
             }
-        }else {
-            swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+            let uncheck = UIAction(title: "Uncheck", image: UIImage(systemName: "arrowshape.turn.up.left.circle"), identifier: nil) { action in
+                self.uncheckAction(cell: cell, chioseHabit: chioseHabit)
+            }
+            
+            let delete = UIAction(title: "Confirm Delete", image: UIImage(systemName: "trash.fill"), identifier: nil) { action in
+                self.deleteAction(indexPath: indexPath)
+            }
+            
+            let doubleCheckDelete = UIMenu(__title: "Delete", image: nil, identifier: nil, children:[delete])
+            
+            
+            if(chioseHabit.checked) {
+                return UIMenu(__title: "Menu", image: nil, identifier: nil, children:[uncheck, doubleCheckDelete])
+            }
+            
+            return UIMenu(__title: "Menu", image: nil, identifier: nil, children:[check, doubleCheckDelete])
         }
-        
-        return swipeConfiguration
+        return configuration
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
