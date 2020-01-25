@@ -7,7 +7,7 @@ class CreateHabitView: UIView {
     fileprivate var collectionView: UICollectionView!
     fileprivate let nameTextField = UITextField()
     
-    fileprivate var emojiArray: [String] = ["💧", "🍏", "🍎" , "🥑", "🍳", "🥦", "🏀", "💪", "😀", "😃", "😄", "😁", "😆", "😂", "🤣", "🧐", "🤓", "😎", "😊", "⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🎱", "🎷", "🎺", "🎻", "🚗", "🚲", "🛵", "📱", "❤️", "🧡"]
+    fileprivate var emojiArray: [String] = ["💧", "🍎" , "🥑", "🍳", "🥦", "🥃", "☕️", "🏀", "🧗", "🏃‍♂️", "🏄‍♂️", "🚵‍♀️", "🚶", "⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🎱", "🎷", "💪", "😀", "😃", "😄", "😁", "😆", "😂", "🤣", "🧐", "🤓", "😎", "😊", "🚗", "🚲", "🛵", "🚅", "✈️", "📱", "🎮", "❤️", "🧡", "👬", "🍱", "🍙", "🍽", "🧻"]
     fileprivate struct emojiCollectionCellItem {
         var index: Int?
         var emoji: String?
@@ -24,31 +24,39 @@ class CreateHabitView: UIView {
         let nameColumnLabel = UILabel()
         nameColumnLabel.text = "名稱"
         nameColumnLabel.numberOfLines = 0
+        nameColumnLabel.font = UIFont(name: "Arial", size: 24)
+        nameColumnLabel.textColor = .white
         
-        nameTextField.placeholder = "輸入習慣名稱"
+        nameTextField.placeholder = ""
         nameTextField.borderStyle = .roundedRect
         nameTextField.clearButtonMode = .whileEditing
         nameTextField.returnKeyType = .done
+        nameTextField.font = UIFont(name: "Arial", size: 24)
+        nameTextField.backgroundColor = UIColor(hex: "#555555")
+        nameTextField.textColor = .white
         
         let emojiColumnLabel = UILabel()
         emojiColumnLabel.text = "圖示"
         emojiColumnLabel.numberOfLines = 0
+        emojiColumnLabel.font = UIFont(name: "Arial", size: 24)
+        emojiColumnLabel.textColor = .white
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        layout.itemSize = CGSize(width: 40, height:40)
+        layout.itemSize = CGSize(width: 60, height:60)
         
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(EmojiCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = UIColor(hex: "#333333")
         
         rootFlexContainer.flex.direction(.column).padding(12).define { (flex) in
             flex.addItem(nameColumnLabel).marginTop(12)
-            flex.addItem(nameTextField).marginTop(12)
+            flex.addItem(nameTextField).padding(5).marginTop(12)
             flex.addItem(emojiColumnLabel).marginTop(12)
-            flex.addItem(collectionView).height(400).marginTop(12)
+            flex.addItem(collectionView).height(650).marginTop(12)
         }
         
         addSubview(rootFlexContainer)
@@ -62,7 +70,6 @@ class CreateHabitView: UIView {
         super.layoutSubviews()
 
         rootFlexContainer.pin.top().horizontally().margin(pin.safeArea)
-
         rootFlexContainer.flex.layout(mode: .adjustHeight)
     }
     
@@ -91,7 +98,7 @@ class CreateHabitView: UIView {
 
 extension CreateHabitView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 36
+        return emojiArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -113,7 +120,7 @@ extension CreateHabitView: UICollectionViewDelegate, UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.backgroundColor = .white
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor(hex: "#555555")
     }
 
 }

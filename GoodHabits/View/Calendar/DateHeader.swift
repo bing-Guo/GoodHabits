@@ -20,6 +20,7 @@ class DateHeader: JTAppleCollectionReusableView {
         monthTitle = UILabel(frame: .zero)
         monthTitle.textColor = .white
         monthTitle.textAlignment = .center
+        monthTitle.font = UIFont(name: "Arial", size: 28)
         
         monLabel.text = "一"
         tueLabel.text = "二"
@@ -35,13 +36,20 @@ class DateHeader: JTAppleCollectionReusableView {
         friLabel.textAlignment = .center
         satLabel.textAlignment = .center
         sunLabel.textAlignment = .center
+        monLabel.textColor = .white
+        tueLabel.textColor = .white
+        wedLabel.textColor = .white
+        thuLabel.textColor = .white
+        friLabel.textColor = .white
+        satLabel.textColor = .white
+        sunLabel.textColor = .white
         
         rootFlexContainer.flex.direction(.column).define { (flex) in
             flex.addItem().direction(.row).alignItems(.center).define { (flex) in
                 flex.addItem(monthTitle).margin(12).grow(1)
             }
             
-            flex.addItem().direction(.row).define { (flex) in
+            flex.addItem().direction(.row).marginTop(20).define { (flex) in
                 flex.addItem(sunLabel).grow(1)
                 flex.addItem(monLabel).grow(1)
                 flex.addItem(tueLabel).grow(1)

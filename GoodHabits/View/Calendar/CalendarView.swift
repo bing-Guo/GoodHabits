@@ -8,9 +8,18 @@ class CalendarView: UIView {
     fileprivate var calendarView: JTAppleCalendarView!
     fileprivate let greenColorHex = "#FFD7B3"
     var calendarDataSource = [String: String]()
+    var titleLabel = UILabel()
+    var lineBlock = UIView()
     
     init() {
         super.init(frame: .zero)
+        
+        titleLabel.text = ""
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont(name: "Helvetica", size: 28)
+        titleLabel.textAlignment = .center
+        
+        lineBlock.layer.backgroundColor = UIColor.white.cgColor
         
         calendarView = JTAppleCalendarView(frame: .zero)
         calendarView.register(DateCell.self, forCellWithReuseIdentifier: "dateCell")
@@ -28,7 +37,9 @@ class CalendarView: UIView {
         calendarView.scrollToDate(Date(),animateScroll: false)
         
         rootFlexContainer.flex.direction(.column).padding(12).define { (flex) in
-            flex.addItem(calendarView)
+            flex.addItem(titleLabel).marginTop(10)
+            flex.addItem(lineBlock).marginTop(20).height(1)
+            flex.addItem(calendarView).marginTop(20)
         }
         
         addSubview(rootFlexContainer)
@@ -101,10 +112,18 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
         formatter.dateFormat = "yyyy-MM-dd"
         let dateString = formatter.string(from: cellState.date)
         
-        if calendarDataSource[dateString] == nil {
-            cell.checked.isHidden = true
-        } else {
+        if let statue = calendarDataSource[dateString] {
             cell.checked.isHidden = false
+            
+            if statue == "tail" {
+                cell.isTailDay()
+            }else if statue == "head" {
+                cell.isHeadDay()
+            }else if statue == "continue"{
+                cell.isContinueDay()
+            }else {}
+        } else {
+            cell.checked.isHidden = true
         }
     }
     
@@ -115,10 +134,10 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
         let dateString = formatter.string(from: cellState.date)
         let todayString = formatter.string(from: today)
         
-        if todayString == dateString {
-            cell.todayLabel.isHidden = false
+        if(todayString == dateString) {
+            cell.isToday(true)
         } else {
-            cell.todayLabel.isHidden = true
+            cell.isToday(false)
         }
     }
     
@@ -133,6 +152,6 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
     }
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
-        return MonthSize(defaultSize: 80)
+        return MonthSize(defaultSize: 120)
     }
 }

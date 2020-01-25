@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     var todayHabits: [TodayHabit] {
         let realm = try! Realm()
-//        print("fileURL: \(realm.configuration.fileURL!)")
+        print("fileURL: \(realm.configuration.fileURL!)")
         let nowDateString = self.getNowDate()
         
         var habitStatus: [HabitStatus] {
@@ -71,20 +71,19 @@ class ViewController: UIViewController {
     func settingNavigationBar() {
         navigationItem.title = "習慣"
         
-        let font = UIFont(name: "Helvetica", size: 28)!
-        
-        let titleDict: NSDictionary = [
+        let attributes: NSDictionary = [
             NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: font
+            NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 28)
         ]
         
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.barTintColor = .white
         
-        self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [NSAttributedString.Key : Any]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes as? [NSAttributedString.Key : Any]
         
-        
-        self.navigationController?.navigationBar.barTintColor  = UIColor(hex: "#333333")
+        // Background Transparent
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "plus"),
@@ -134,8 +133,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         let nowDateString = self.getNowDate()
         
-        let habitStatus: HabitStatus = HabitStatus(id: chioseHabit.id, date: nowDateString)
-        self.appendHabitStatusToRealm(habitStatus: habitStatus)
+        self.deleteHabitStatusInRealm(habitID: chioseHabit.id, date: nowDateString)
         
         cell.isCheck(false)
     }
@@ -191,7 +189,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let vc = CalendarViewController()
         vc.habitID = todayHabits[indexPath.row].id
         vc.habitTitle = todayHabits[indexPath.row].title
-        self.navigationController?.pushViewController(vc, animated: true)
+        vc.habitIcon = todayHabits[indexPath.row].icon
+//        self.navigationController?.pushViewController(vc, animated: true)
+        self.present(vc, animated: true, completion: nil)
     
     }
     

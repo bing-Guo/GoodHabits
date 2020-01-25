@@ -10,17 +10,31 @@ class CreateHabitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(hex: "#333333")
         settingNavigationBar()
     }
     
     func settingNavigationBar() {
-        let rightButton = UIBarButtonItem(
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "儲存",
             style: .plain,
             target: self,
             action: #selector(saveHabit)
         )
-        navigationItem.rightBarButtonItem = rightButton
+        
+        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        
+        let attributes: NSDictionary = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 24)
+        ]
+       
+        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes(attributes as? [NSAttributedString.Key : Any], for: .normal)
     }
     
     @objc func saveHabit() {

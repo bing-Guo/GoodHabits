@@ -4,13 +4,48 @@ import RealmSwift
 class CalendarViewController: UIViewController {
     var habitID = ""
     var habitTitle = ""
-    var habitsData: [String: String] {
+    var habitIcon = ""
+    var habitsDataSource: [String: String] {
         var habitResult = [String: String]()
         let realm = try! Realm()
         let dataSource = realm.objects(HabitStatus.self).filter("id = '\(habitID)'")
-        for data in dataSource{
-            habitResult[data.date] = data.id
+        
+        for data in dataSource {
+            habitResult[data.date] = ""
         }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        for date in habitResult {
+            
+            let thisDateString = date.key
+            let thisDate = formatter.date(from: thisDateString)
+            
+            var prevDateString: String {
+                let date = Calendar.current.date(byAdding: .day, value: -1, to: thisDate!)
+                return formatter.string(for: date)!
+            }
+            
+            var nextDateString: String {
+                let date = Calendar.current.date(byAdding: .day, value: 1, to: thisDate!)
+                return formatter.string(for: date)!
+            }
+            
+            if habitResult[prevDateString] != nil && habitResult[nextDateString] != nil {
+                habitResult[thisDateString] = "continue"
+            }
+            else if habitResult[prevDateString] == nil && habitResult[nextDateString] != nil {
+                habitResult[thisDateString] = "head"
+            }
+            else if habitResult[prevDateString] != nil && habitResult[nextDateString] == nil {
+                habitResult[thisDateString] = "tail"
+            }
+            else {
+                habitResult[thisDateString] = ""
+            }
+        }
+        
         return habitResult
     }
 
@@ -21,13 +56,12 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(hex: "#333333")
         
-        mainView.calendarDataSource = habitsData
+        mainView.calendarDataSource = habitsDataSource
+        mainView.titleLabel.text = "\(habitIcon) \(habitTitle)"
         settingNavigationBar()
     }
     
     func settingNavigationBar() {
-        navigationItem.title = habitTitle
-        
         let font = UIFont(name: "Helvetica", size: 28)!
         
         let titleDict: NSDictionary = [
@@ -40,8 +74,13 @@ class CalendarViewController: UIViewController {
         
         self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [NSAttributedString.Key : Any]
         
-        
         self.navigationController?.navigationBar.barTintColor  = UIColor(hex: "#333333")
         
+        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
     }
 }
