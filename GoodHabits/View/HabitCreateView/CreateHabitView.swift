@@ -5,8 +5,9 @@ import PinLayout
 class CreateHabitView: UIView {
     fileprivate let rootFlexContainer = UIView()
     fileprivate var collectionView: UICollectionView!
-    fileprivate let nameTextField = UITextField()
-    
+    fileprivate var nameTextField = UITextField()
+    fileprivate var nameColumnLabel = UILabel()
+    fileprivate var emojiColumnLabel = UILabel()
     fileprivate var emojiArray: [String] = ["💧", "🍎" , "🥑", "🍳", "🥦", "🥃", "☕️", "🏀", "🧗", "🏃‍♂️", "🏄‍♂️", "🚵‍♀️", "🚶", "⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🎱", "🎷", "💪", "😀", "😃", "😄", "😁", "😆", "😂", "🤣", "🧐", "🤓", "😎", "😊", "🚗", "🚲", "🛵", "🚅", "✈️", "📱", "🎮", "❤️", "🧡", "👬", "🍱", "🍙", "🍽", "🧻"]
     fileprivate struct emojiCollectionCellItem {
         var index: Int?
@@ -14,32 +15,39 @@ class CreateHabitView: UIView {
     }
     fileprivate var choiceEmoji = emojiCollectionCellItem()
     
+    // MARK: - Lifecycle
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        rootFlexContainer.pin.top().horizontally().margin(pin.safeArea)
+        rootFlexContainer.flex.layout(mode: .adjustHeight)
+    }
+    
     init() {
         super.init(frame: .zero)
         backgroundColor = .white
-
-        let segmentedControl = UISegmentedControl(items: ["Intro", "FlexLayout", "PinLayout"])
-        segmentedControl.selectedSegmentIndex = 0
-        
-        let nameColumnLabel = UILabel()
-        nameColumnLabel.text = "名稱"
-        nameColumnLabel.numberOfLines = 0
-        nameColumnLabel.font = UIFont(name: "Arial", size: 24)
-        nameColumnLabel.textColor = .white
         
         nameTextField.placeholder = ""
         nameTextField.borderStyle = .roundedRect
         nameTextField.clearButtonMode = .whileEditing
         nameTextField.returnKeyType = .done
         nameTextField.font = UIFont(name: "Arial", size: 24)
-        nameTextField.backgroundColor = UIColor(hex: "#555555")
+        nameTextField.backgroundColor = UIColor._standard_gray
         nameTextField.textColor = .white
         
-        let emojiColumnLabel = UILabel()
+        nameColumnLabel.text = "名稱"
+        nameColumnLabel.numberOfLines = 0
+        nameColumnLabel.font = UIFont(name: "Arial", size: 24)
+        nameColumnLabel.textColor = .white
+        
         emojiColumnLabel.text = "圖示"
         emojiColumnLabel.numberOfLines = 0
         emojiColumnLabel.font = UIFont(name: "Arial", size: 24)
         emojiColumnLabel.textColor = .white
+
+        let segmentedControl = UISegmentedControl(items: ["Intro", "FlexLayout", "PinLayout"])
+        segmentedControl.selectedSegmentIndex = 0
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -50,7 +58,7 @@ class CreateHabitView: UIView {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(EmojiCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        collectionView.backgroundColor = UIColor(hex: "#333333")
+        collectionView.backgroundColor = UIColor._deep_gray
         
         rootFlexContainer.flex.direction(.column).padding(12).define { (flex) in
             flex.addItem(nameColumnLabel).marginTop(12)
@@ -66,12 +74,7 @@ class CreateHabitView: UIView {
         super.init(coder: aDecoder)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        rootFlexContainer.pin.top().horizontally().margin(pin.safeArea)
-        rootFlexContainer.flex.layout(mode: .adjustHeight)
-    }
+    // MARK: - Action
     
     fileprivate func getNameTextFieldValue() -> String {
         if let text = nameTextField.text {
@@ -87,6 +90,8 @@ class CreateHabitView: UIView {
         return ""
     }
     
+    // MARK: - Helper
+    
     func getFormDate() -> Habit {
         let habit: Habit = Habit()
         habit.title = getNameTextFieldValue()
@@ -97,6 +102,9 @@ class CreateHabitView: UIView {
 }
 
 extension CreateHabitView: UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    // MARK: - collection view data source
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return emojiArray.count
     }
@@ -120,7 +128,7 @@ extension CreateHabitView: UICollectionViewDelegate, UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor(hex: "#555555")
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor._standard_gray
     }
 
 }

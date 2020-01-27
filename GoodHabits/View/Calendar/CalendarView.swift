@@ -6,10 +6,21 @@ import JTAppleCalendar
 class CalendarView: UIView {
     fileprivate let rootFlexContainer = UIView()
     fileprivate var calendarView: JTAppleCalendarView!
-    fileprivate let greenColorHex = "#FFD7B3"
+    
     var calendarDataSource = [String: String]()
     var titleLabel = UILabel()
     var lineBlock = UIView()
+    
+    // MARK: - Life cycle
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        rootFlexContainer.pin.top().horizontally().margin(pin.safeArea)
+        calendarView.pin.height(400)
+
+        rootFlexContainer.flex.layout(mode: .adjustHeight)
+    }
     
     init() {
         super.init(frame: .zero)
@@ -31,7 +42,7 @@ class CalendarView: UIView {
         calendarView.scrollDirection = .horizontal
         calendarView.scrollingMode = .stopAtEachCalendarFrame
         calendarView.showsHorizontalScrollIndicator = false
-        calendarView.backgroundColor = UIColor(hex: "#333333")
+        calendarView.backgroundColor = UIColor._deep_gray
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
         calendarView.scrollToDate(Date(),animateScroll: false)
@@ -43,15 +54,6 @@ class CalendarView: UIView {
         }
         
         addSubview(rootFlexContainer)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        rootFlexContainer.pin.top().horizontally().margin(pin.safeArea)
-        calendarView.pin.height(400)
-
-        rootFlexContainer.flex.layout(mode: .adjustHeight)
     }
     
     required init?(coder: NSCoder) {
@@ -84,7 +86,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
     
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCell
-        cell.dateLabel?.text = cellState.text
+        cell.dateLabel.text = cellState.text
         
         self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
         
@@ -113,7 +115,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
         let dateString = formatter.string(from: cellState.date)
         
         if let statue = calendarDataSource[dateString] {
-            cell.checked.isHidden = false
+            cell.circle.isHidden = false
             
             if statue == "tail" {
                 cell.isTailDay()
@@ -123,7 +125,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
                 cell.isContinueDay()
             }else {}
         } else {
-            cell.checked.isHidden = true
+            cell.circle.isHidden = true
         }
     }
     

@@ -14,6 +14,14 @@ class DateHeader: JTAppleCollectionReusableView {
     var satLabel = UILabel(frame: .zero)
     var sunLabel = UILabel(frame: .zero)
     
+    // MARK: - Lifecycle
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        rootFlexContainer.pin.top().horizontally()
+        rootFlexContainer.flex.layout(mode: .adjustHeight)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -60,12 +68,6 @@ class DateHeader: JTAppleCollectionReusableView {
             }
         }
         self.addSubview(rootFlexContainer)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        rootFlexContainer.pin.top().horizontally()
-        rootFlexContainer.flex.layout(mode: .adjustHeight)
     }
     
     required init?(coder: NSCoder) {

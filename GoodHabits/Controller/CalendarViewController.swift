@@ -2,13 +2,12 @@ import UIKit
 import RealmSwift
 
 class CalendarViewController: UIViewController {
-    var habitID = ""
-    var habitTitle = ""
-    var habitIcon = ""
+    var habit: Habit = Habit()
+    
     var habitsDataSource: [String: String] {
         var habitResult = [String: String]()
         let realm = try! Realm()
-        let dataSource = realm.objects(HabitStatus.self).filter("id = '\(habitID)'")
+        let dataSource = realm.objects(HabitStatus.self).filter("id = '\(habit.id)'")
         
         for data in dataSource {
             habitResult[data.date] = ""
@@ -52,35 +51,13 @@ class CalendarViewController: UIViewController {
     var mainView: CalendarView { return self.view as! CalendarView }
     override func loadView() { self.view = CalendarView() }
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(hex: "#333333")
+        self.view.backgroundColor = UIColor._deep_gray
         
         mainView.calendarDataSource = habitsDataSource
-        mainView.titleLabel.text = "\(habitIcon) \(habitTitle)"
-        settingNavigationBar()
-    }
-    
-    func settingNavigationBar() {
-        let font = UIFont(name: "Helvetica", size: 28)!
-        
-        let titleDict: NSDictionary = [
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: font
-        ]
-        
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barTintColor = .white
-        
-        self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [NSAttributedString.Key : Any]
-        
-        self.navigationController?.navigationBar.barTintColor  = UIColor(hex: "#333333")
-        
-        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(
-            title: "",
-            style: .plain,
-            target: nil,
-            action: nil
-        )
+        mainView.titleLabel.text = "\(habit.icon) \(habit.title)"
     }
 }

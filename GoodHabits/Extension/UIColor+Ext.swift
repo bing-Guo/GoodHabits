@@ -20,4 +20,16 @@ extension UIColor {
         
         self.init(red: redValue, green: greenValue, blue: blueValue, alpha: 1.0)
     }
+    
+    class var _standard_gray: UIColor {
+        return UIColor(hex: "#555555")
+    }
+    
+    class var _deep_gray: UIColor {
+        return UIColor(hex: "#333333")
+    }
+    
+    class var _standard_green: UIColor {
+        return UIColor(hex: "#5CB85C")
+    }
 }

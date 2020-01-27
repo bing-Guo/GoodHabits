@@ -11,11 +11,9 @@ struct TodayHabit {
 class ViewController: UIViewController {
     
     var habitsTableView = UITableView()
-    let greenColorHex = "#5CB85C"
     
     var todayHabits: [TodayHabit] {
         let realm = try! Realm()
-        print("fileURL: \(realm.configuration.fileURL!)")
         let nowDateString = self.getNowDate()
         
         var habitStatus: [HabitStatus] {
@@ -46,6 +44,8 @@ class ViewController: UIViewController {
         return todayHabit
     }
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         habitsTableView = UITableView(frame: self.view.bounds, style: .plain)
         habitsTableView.delegate = self
         habitsTableView.dataSource = self
-        habitsTableView.backgroundColor = UIColor(hex: "#333333")
+        habitsTableView.backgroundColor = UIColor._deep_gray
         habitsTableView.separatorStyle = .none
         
         habitsTableView.register(HabitTableViewCell.self, forCellReuseIdentifier: "habitsCell")
@@ -63,27 +63,25 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        print("reload")
         self.habitsTableView.reloadData()
     }
     
-    func settingNavigationBar() {
-        navigationItem.title = "習慣"
+    // MARK: - Navigation Bar Setting
+    
+    fileprivate func settingNavigationBar() {
+        self.navigationItem.title = "習慣"
         
         let attributes: NSDictionary = [
             NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 28)
+            NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 28)!
         ]
-        
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barTintColor = .white
-        
         self.navigationController?.navigationBar.titleTextAttributes = attributes as? [NSAttributedString.Key : Any]
         
-        // Background Transparent
+        // 背景透明
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        // 去除陰影
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.tintColor = .white
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "plus"),
@@ -93,13 +91,16 @@ class ViewController: UIViewController {
         )
     }
     
-    @objc func passToCreateHabitView() {
+    @objc fileprivate func passToCreateHabitView() {
         self.navigationController?.pushViewController(CreateHabitViewController(), animated: true)
     }
-    @objc func addBtnAction() {  print("addBtnAction")  }
+    
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - Table view data source
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.todayHabits.count
     }
@@ -117,34 +118,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.isCheck(habit.checked)
         
         return cell
-    }
-    
-    func checkAction(cell: HabitTableViewCell, chioseHabit: TodayHabit) {
-        
-        let nowDateString = self.getNowDate()
-        
-        let habitStatus: HabitStatus = HabitStatus(id: chioseHabit.id, date: nowDateString)
-        self.appendHabitStatusToRealm(habitStatus: habitStatus)
-        
-        cell.isCheck(true)
-    }
-    
-    func uncheckAction(cell: HabitTableViewCell, chioseHabit: TodayHabit) {
-        
-        let nowDateString = self.getNowDate()
-        
-        self.deleteHabitStatusInRealm(habitID: chioseHabit.id, date: nowDateString)
-        
-        cell.isCheck(false)
-    }
-    
-    func deleteAction(indexPath: IndexPath) {
-        let chioseHabit = self.todayHabits[indexPath.row]
-        
-        self.deleteHabitInRealm(habitID: chioseHabit.id)
-        self.habitsTableView.beginUpdates()
-        self.habitsTableView.deleteRows(at: [indexPath], with: .fade)
-        self.habitsTableView.endUpdates()
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
@@ -184,15 +157,44 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
     
-    // pass to calendar
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = CalendarViewController()
-        vc.habitID = todayHabits[indexPath.row].id
-        vc.habitTitle = todayHabits[indexPath.row].title
-        vc.habitIcon = todayHabits[indexPath.row].icon
-//        self.navigationController?.pushViewController(vc, animated: true)
+        let habit = Habit()
+        habit.id = todayHabits[indexPath.row].id
+        habit.title = todayHabits[indexPath.row].title
+        habit.icon = todayHabits[indexPath.row].icon
+        
+        vc.habit = habit
         self.present(vc, animated: true, completion: nil)
     
+    }
+    
+    // MARK: - Action
+    
+    fileprivate func checkAction(cell: HabitTableViewCell, chioseHabit: TodayHabit) {
+        let nowDateString = self.getNowDate()
+        
+        let habitStatus: HabitStatus = HabitStatus(id: chioseHabit.id, date: nowDateString)
+        self.appendHabitStatusToRealm(habitStatus: habitStatus)
+        
+        cell.isCheck(true)
+    }
+    
+    fileprivate func uncheckAction(cell: HabitTableViewCell, chioseHabit: TodayHabit) {
+        let nowDateString = self.getNowDate()
+        
+        self.deleteHabitStatusInRealm(habitID: chioseHabit.id, date: nowDateString)
+        
+        cell.isCheck(false)
+    }
+    
+    fileprivate func deleteAction(indexPath: IndexPath) {
+        let chioseHabit = self.todayHabits[indexPath.row]
+        
+        self.deleteHabitInRealm(habitID: chioseHabit.id)
+        self.habitsTableView.beginUpdates()
+        self.habitsTableView.deleteRows(at: [indexPath], with: .fade)
+        self.habitsTableView.endUpdates()
     }
     
     fileprivate func appendHabitStatusToRealm(habitStatus: HabitStatus) {
@@ -222,6 +224,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             realm.delete(habitStatus)
         }
     }
+    
+    // MARK: - Helpers
     
     fileprivate func getNowDate() -> String {
         let dateFormat: DateFormatter = DateFormatter()

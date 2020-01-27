@@ -9,13 +9,20 @@ class HabitTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = UIColor(hex: "#333333")
+        
+        // contentView
+        backgroundColor = UIColor._deep_gray
         selectionStyle = .none
         
+        // icon label
         self.iconLabel.font = UIFont(name: "Arial", size: 32)
+        
+        // title label
         self.titleLabel.font = UIFont(name: "Arial", size: 24)
+        self.titleLabel.textColor = .white
         self.titleLabel.numberOfLines = 0
         
+        // flex layout
         contentView
             .flex
             .direction(.column)
@@ -27,9 +34,8 @@ class HabitTableViewCell: UITableViewCell {
                 flex.addItem(titleLabel).marginLeft(10).grow(1)
             }
         }
-        contentView.backgroundColor = UIColor(hex: "#333333")
+        contentView.backgroundColor = UIColor._deep_gray
         contentView.layer.cornerRadius = CGFloat(10)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -42,13 +48,13 @@ class HabitTableViewCell: UITableViewCell {
         contentView.flex.layout(mode: .adjustHeight)
     }
     
+    // MARK: - Action
+    
     func isCheck(_ status: Bool) {
         if(status){
-            self.contentView.backgroundColor = UIColor(hex: "#5CB85C")
+            self.contentView.backgroundColor = UIColor._standard_green
         }else{
-            self.contentView.backgroundColor = UIColor(hex: "#DDDDDD")
+            self.contentView.backgroundColor = UIColor._standard_gray
         }
     }
-    
-    
 }

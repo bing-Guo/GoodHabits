@@ -8,11 +8,15 @@ class CreateHabitViewController: UIViewController {
     var mainView: CreateHabitView { return self.view as! CreateHabitView }
     override func loadView() { self.view = CreateHabitView() }
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(hex: "#333333")
+        self.view.backgroundColor = UIColor._deep_gray
         settingNavigationBar()
     }
+    
+    // MARK: - Navigation Bar Setting
     
     func settingNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -31,16 +35,16 @@ class CreateHabitViewController: UIViewController {
         
         let attributes: NSDictionary = [
             NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 24)
+            NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 24)!
         ]
        
         self.navigationItem.rightBarButtonItem?.setTitleTextAttributes(attributes as? [NSAttributedString.Key : Any], for: .normal)
     }
     
+    // MARK: - Action
+    
     @objc func saveHabit() {
         let habit = mainView.getFormDate()
-        
-        print("save (\(habit.title), \(habit.icon))")
         
         let realm = try! Realm()
         try! realm.write {
