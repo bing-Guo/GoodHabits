@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     var todayHabits: [TodayHabit] {
         let realm = try! Realm()
+        
         let nowDateString = self.getNowDate()
         
         var habitStatus: [HabitStatus] {
@@ -126,18 +127,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.cellForRow(at: indexPath) as! HabitTableViewCell
             let chioseHabit = self.todayHabits[indexPath.row]
             
-            let check = UIAction(title: "Check", image: UIImage(systemName: "checkmark.circle"), identifier: nil) { action in
+            let check = UIAction(title: "完成", image: UIImage(systemName: "checkmark.circle"), identifier: nil) { action in
                 self.checkAction(cell: cell, chioseHabit: chioseHabit)
             }
-            let uncheck = UIAction(title: "Uncheck", image: UIImage(systemName: "arrowshape.turn.up.left.circle"), identifier: nil) { action in
+            let uncheck = UIAction(title: "取消完成", image: UIImage(systemName: "arrowshape.turn.up.left.circle"), identifier: nil) { action in
                 self.uncheckAction(cell: cell, chioseHabit: chioseHabit)
             }
             
-            let delete = UIAction(title: "Confirm Delete", image: UIImage(systemName: "trash.fill"), identifier: nil) { action in
+            let delete = UIAction(title: "確定刪除", image: UIImage(systemName: "trash.fill"), identifier: nil) { action in
                 self.deleteAction(indexPath: indexPath)
             }
             
-            let doubleCheckDelete = UIMenu(__title: "Delete", image: nil, identifier: nil, children:[delete])
+            let doubleCheckDelete = UIMenu(__title: "刪除", image: nil, identifier: nil, children:[delete])
             
             
             if(chioseHabit.checked) {

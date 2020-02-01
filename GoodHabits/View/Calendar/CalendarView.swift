@@ -130,6 +130,9 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
     }
     
     fileprivate func handleCellIsToday(cell: DateCell, cellState: CellState) {
+        // 確保在reuse時候還是保持正常
+        cell.reset()
+        
         let today = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -138,8 +141,6 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
         
         if(todayString == dateString) {
             cell.isToday(true)
-        } else {
-            cell.isToday(false)
         }
     }
     
