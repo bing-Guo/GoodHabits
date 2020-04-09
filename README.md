@@ -1,22 +1,24 @@
 # GoodHabits
-一款可以協助使用者建立良好習慣的iOS App
 
-第二個練習作品，嘗試用純程式碼實現介面，主要使用FlexLayout+PinLayout，所有資料皆存放到Realm；習慣列表使用TableView實作，完成、取消完成、刪除等功能清單使用3D touch方式呈現；新增可以輸入一段想要養成習慣的內容，以及選擇一個合適的icon（以CollectionView實作）；點選習慣，呈現完成進度狀況的日曆，得以查看哪些日子有完成習慣、哪些為連續完成。
+## 設計方向
+* 一款可以協助使用者建立良好習慣的iOS App
+* 可以建立多個習慣
+* 每天完成後可以標記已完成
+* 藉由日曆查看完成進度
+* 可以管理習慣
 
-## 介紹
-1. 可以建立多個習慣
-2. 每天完成後可以標記已完成
-3. 藉由日曆查看完成進度
-4. 可以移除不必要的習慣
+## 使用技術
+### UI
+* 用純程式碼實現介面，Layout使用FlexLayout+PinLayout，主要因為他採用CSS Flexbox方式，跟SwiftUI相似，加上有詳細的文件與範例，在搭配程式建立UIKit元件，來實現純Code建立View
+* 使用Card View樣式設計
+* 日曆使用第三方套件JTAppleCalendar實現，他在Github擁有6.5k顆Star，並有持續更新
 
-## 畫面實作
-純程式碼（FlexLayout+PinLayout）
+### 儲存
+* 使用Realm儲存，選擇該方案原因為對新手來說，語法簡單，安裝簡單，使用起來很直覺，作為我起初學習使用的原因
 
-## 使用套件
-1. Realm
-2. FlexLayout
-3. PinLayout
-4. JTAppleCalendar
+### 3D touch
+* 完成、取消完成、刪除等功能清單使用3D touch方式呈現
+* 原先是用TableView預設的swipe action來做，但因為我用Card View樣式，swipe action的按鈕高度會高於Card View的高度，加上按鈕不提供客製化，後來選擇3D Touch替代方案，不過，這問題在另一個專案有得到了解決，用客製化後的圖片作為按鈕背景，呈現起來就正常
 
 ## 實際畫面
 ![首頁1](https://github.com/bing-Guo/GoodHabits/blob/master/ScreenShot/1.png) ←首頁1
@@ -30,3 +32,6 @@
 ![日曆2](https://github.com/bing-Guo/GoodHabits/blob/master/ScreenShot/5.png) ←日曆2
 
 ![新增習慣](https://github.com/bing-Guo/GoodHabits/blob/master/ScreenShot/6.png) ←新增習慣畫面
+
+
+
